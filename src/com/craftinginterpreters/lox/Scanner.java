@@ -84,7 +84,11 @@ public class Scanner {
                 if(match('/')){
                     // A comment goes until the end of the line.
                     while(peek() != '\n' && !isAtEnd()) advance();
-                }else{
+                }else if(match('*')){
+                    // c style block comments /*....*/
+                    blockComment();
+                }
+                else{
                     addToken(SLASH);
                 }
             case '"':
@@ -191,5 +195,29 @@ public class Scanner {
             return;
         }
         addToken(IDENTIFIER);
+    }
+
+    private void blockComment(){
+        if(isAtEnd()){
+            Lox.error(line, "Unterminated Block Comment.");
+            return;
+        }
+        while(true){
+            if(isAtEnd() || peek() == '\0'){
+                Lox.error(line, "Unterminated Block Comment.");
+                break;
+            }
+            if(peek() == '\n') line++;
+            if(peek() == '*' && peekNext() == '/') {
+                advance(); // consume *
+                advance(); // consume /
+                break;
+            }
+            if(peek() == '/' && peekNext() == '*') {
+                // nested block comments
+                blockComment();
+            }
+            advance();
+        }
     }
 }
