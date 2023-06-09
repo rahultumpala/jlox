@@ -91,6 +91,7 @@ public class Scanner {
                 else{
                     addToken(SLASH);
                 }
+                break;
             case '"':
                 string();
                 break;
@@ -207,15 +208,18 @@ public class Scanner {
                 Lox.error(line, "Unterminated Block Comment.");
                 break;
             }
-            if(peek() == '\n') line++;
-            if(peek() == '*' && peekNext() == '/') {
+            else if(peek() == '\n') line++;
+            else if(peek() == '*' && peekNext() == '/') {
                 advance(); // consume *
                 advance(); // consume /
                 break;
             }
-            if(peek() == '/' && peekNext() == '*') {
+            else if(peek() == '/' && peekNext() == '*') {
+                advance(); // consume /
+                advance(); // consume *
                 // nested block comments
                 blockComment();
+                break;
             }
             advance();
         }
