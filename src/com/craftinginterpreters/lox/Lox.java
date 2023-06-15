@@ -25,6 +25,10 @@ public class Lox {
     }
 
     private static void runFile(String path) throws IOException{
+        if(!path.endsWith(".jlox")){
+            System.err.println("Usage: jlox [file].jlox");
+            System.exit(65);
+        }
         byte[] bytes = Files.readAllBytes(Paths.get(path));
         run(new String(bytes, Charset.defaultCharset()));
         // Indicate an error in the exit code.
