@@ -18,6 +18,7 @@ public class GenerateAst {
            "Call     : Expr callee, Token paren, List<Expr> arguments",
            "Get      : Expr object, Token name", // this is used for dot notation used in property access ( <expr> <dot> <identifier> )
            "Logical  : Expr left, Token operator, Expr right",
+           "Set      : Expr object, Token name, Expr value",
            "Grouping : Expr expression",
            "Literal  : Object value",
            "Unary    : Token operator, Expr right",
