@@ -16,7 +16,10 @@ public class GenerateAst {
            "Assign   : Token name, Expr value",
            "Binary   : Expr left, Token operator, Expr right",
            "Call     : Expr callee, Token paren, List<Expr> arguments",
+           "Get      : Expr object, Token name", // this is used for dot notation used in property access ( <expr> <dot> <identifier> )
            "Logical  : Expr left, Token operator, Expr right",
+           "Set      : Expr object, Token name, Expr value",
+           "This     : Token keyword",
            "Grouping : Expr expression",
            "Literal  : Object value",
            "Unary    : Token operator, Expr right",
@@ -24,6 +27,7 @@ public class GenerateAst {
         ));
         defineAst(outputDir, "Stmt", Arrays.asList(
            "Block        : List<Stmt> statements",
+           "Class        : Token name, List<Stmt.Function> methods",
            "Expression   : Expr expression",
            "Function     : Token name, List<Token> params, List<Stmt> body",
            "If           : Expr condition, Stmt thenBranch, Stmt elseBranch",
